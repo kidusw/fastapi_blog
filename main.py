@@ -55,7 +55,7 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
     )
     posts = result.scalars().all()
 
-    has_more = (skip + len(posts)) < total
+    has_more = len(posts) < total
 
     return templates.TemplateResponse(
         request,
@@ -121,7 +121,7 @@ async def user_posts_page(
     )
     posts = result.scalars().all()
 
-    has_more = (skip + len(posts)) < total
+    has_more = len(posts) < total
 
     return templates.TemplateResponse(
         request,
@@ -205,4 +205,4 @@ async def validation_exception_handler(
             "message": "Invalid request. Please check your input and try again.",
         },
         status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-    )
+    )   
